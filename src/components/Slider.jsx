@@ -55,8 +55,8 @@ const Slider = () => {
                 />
                 </div>
                 <div className="discription flex flex-col flex-1 place-items-start justify-center ml-11">
-                  <h2 className="text-[55px]">{slide.content.h2}</h2>
-                  <p className=" text-[30px]">{slide.content.p}</p>
+                  <h2 className="text-[55px] text-right">{slide.content.h2}</h2>
+                  <p className=" text-[30px] text-right">{slide.content.p}</p>
                   <button className="btn text-white hover:text-green-900">
                     Shop Now
                   </button>

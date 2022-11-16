@@ -16,23 +16,43 @@ import SignUpForm from "./Pages/SignUpForm"
 import SignUp from "./Pages/SignUp"
 import SignIn from "./Pages/SignIn"
 import ContactPage from "./Pages/ContactPage"
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import OrderRecord from "./components/OrderRecord"
+import CategoryLocalStorage from "./Pages/TestLocalStorage/CategoryLocalStorage"
 
 
 function App() {
+  const {activeNav,newactiveNav} = useSelector((state)=>state.products) 
+
   return (
     <>
 	   <Router>
 	   <Navbar  />
-
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/categorypage" element={<CategoryPage />} />
-          <Route path="/product" element={<ProductPage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/contact" element={<ContactPage />} />
+          
+            <>
+                      <Route path="/" element={<Home />} />
+                      <Route path="/cart" element={<Cart />} />
+                      <Route path="/register" element={<SignUp />} />
+                      <Route path="/login" element={<SignIn />} />
+                      <Route path="/checkout" element={<Checkout />} />
+                      <Route path="/contact" element={<ContactPage />} />
+                      <Route path="/category/:name/:id" element={<CategoryPage />} />
+                      <Route path="/products/:id" element={<ProductPage />} />
+                      <Route path="/category" element={<Categories />} />
+                      <Route path="/products" element={<Products />} />
+                      <Route path="/order-record" element={<OrderRecord />} />
+                      <Route path="/localstorage" element={<CategoryLocalStorage />} />
+
+
+
+
+                      </>
+          
+
+
+		 
 
 
 

@@ -1,181 +1,211 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 /* import NewsLetter from "../components/NewsLetter"; */
 import Footer from "../components/Footer";
-import Counter from "../components/Counter";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  increaseItemQuantity,
+  reduceQuantity,
+  totalPrice,
+} from "../store/productSlice";
+import { ArrowLeftOutlined } from "@material-ui/icons";
+import FormatPrice from "../components/FormatPrice";
+import LoadingSpinner from "../components/LoadingSpinner";
 const Cart = () => {
-  const SummaryItemStyle = "SummaryItem flex justify-between mt-3 w-[100%]";
-  const ProductDivStyle = "flex w-[100%] h-auto items-center mobile:flex-col";
-  const PriceQuantityStyle =
-    "flex-auto flex flex-col justify-center items-center mobile:mt-7 mobile:mb-7";
+  const { userToken } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
-  const [show, setShow] = useState(false);
+  const { productsInCart, isLoading, total_price, total_items } = useSelector(
+    (state) => state.products
+  );
+  useEffect(() => {
+    localStorage.setItem("initalParams", `/cart`);
+    dispatch(totalPrice(userToken));
+  }, [dispatch, total_items]);
+
   return (
     <div class="h-screen ">
-      <div class="py-12">
-        <div class="max-w-md mx-auto  shadow-lg rounded-lg  md:max-w-5xl">
-          <div class="md:flex ">
-            <div class="w-full p-4 px-5 py-5">
-              <div class="md:grid md:grid-cols-3 gap-2 ">
-                <div class="col-span-2 mobile:mr-[-40px] mobile:mt-[-70px] mobile:w-full p-5">
-                  <h1 class="text-xl font-medium ">عربة التسوق</h1>
+      {isLoading ? (
+        <div className="my-40 text-center self-center justify-center mr-[170px] xl:mr-[750px] xl:ml">
+          <LoadingSpinner />
+        </div>
+      ) : (
+        <>
+          <div class="py-12">
+            <div class="max-w-md mx-auto  shadow-lg rounded-lg  md:max-w-5xl">
+              <div class="md:flex ">
+                <div class="w-full p-4 px-5 py-5">
+                  <div class="md:grid md:grid-cols-3 gap-2 ">
+                    <div class="col-span-2 mobile:mr-[-40px] mobile:mt-[-70px] mobile:w-full p-5">
+                      <h1 class="text-2xl xl:mt-[-80px] xl:text-center font-bold ">
+                        عربة التسوق
+                      </h1>
+                      {/* <div className="flex items-center mobile:w-[304px]   justify-around mt-2">
+                    <span className="py-2 border-b-2">الطلبات القادمة</span>
+                    <span>الطلبات المكتملة</span>
+                  </div> */}
+                      {productsInCart.length >= 1 ? (
+                        <>
+                          {productsInCart.map((product) => (
+                            <div
+                              key={product.id}
+                              class="flex justify-between mobile:w-[304px] items-center mt-6 pt-6"
+                            >
+                              <div class="flex mr-[-20px]  items-center">
+                                <img
+                                  src="https://scontent.fbgw57-1.fna.fbcdn.net/v/t1.6435-9/122484663_3430891153658432_6153668941496412298_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=973b4a&_nc_ohc=-O3wE-0XRJMAX_h_yyA&_nc_ht=scontent.fbgw57-1.fna&oh=00_AfDQJJwBV-S0mD9ILiMjjlcL5l25xDUacAyeCF6ILsh5AA&oe=638F2220"
+                                  width="60"
+                                  class="rounded-md "
+                                />
 
-                  <div class="flex justify-between mobile:w-[304px] items-center mt-6 pt-6">
-                    <div class="flex  items-center">
-                      <img
-                        src="https://cdn.shopify.com/s/files/1/0240/7285/products/WithinYourselfLongSleeveT-ShirtinElectricBlue04_360x.jpg?v=1642719824"
-                        width="60"
-                        class="rounded-full "
-                      />
+                                <div class="flex flex-col mr-3">
+                                  <span class="md:text-md font-medium text-right">
+                                    <Link
+                                      to={`/products/${product.product.id}`}
+                                      className="no-underline hover:no-underline active:no-underline"
+                                    >
+                                      {" "}
+                                      {product.product.name}
+                                    </Link>
+                                  </span>
+                                  {product.product.category.name && (
+                                    <span class="text-xs font-light mr-1 text-right text-gray-400">
+                                      {product.product.category.name}
+                                    </span>
+                                  )}
 
-                      <div class="flex flex-col ml-3">
-                        <span class="md:text-md font-medium">Chicken momo</span>
-                        <span class="text-xs font-light text-gray-400">
-                          #41551
+                                  {product.item_size ? (
+                                    <span class="text-xs font-light mr-1 text-right text-gray-400">
+                                      {product.item_size.size}
+                                    </span>
+                                  ):(<></>)}
+                                </div>
+                              </div>
+
+                              <div class="flex justify-center items-center">
+                                <div class="pr-8 flex ">
+                                  <span
+                                    onClick={() =>
+                                      dispatch(
+                                        reduceQuantity({
+                                          id: product.id,
+                                          token: userToken,
+                                        })
+                                      )
+                                    }
+                                    class="font-semibold cursor-pointer"
+                                  >
+                                    -
+                                  </span>
+                                  <input
+                                    type="text"
+                                    class="focus:outline-none cursor-pointer bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
+                                    value={product.item_qty}
+                                  />
+                                  <span
+                                    onClick={() =>
+                                      dispatch(
+                                        increaseItemQuantity({
+                                          id: product.id,
+                                          token: userToken,
+                                        })
+                                      )
+                                    }
+                                    class="font-semibold cursor-pointer"
+                                  >
+                                    +
+                                  </span>
+                                </div>
+
+                                <div class="pr-8">
+                                  <FormatPrice price={product.item_total} />
+                                </div>
+                                <div>
+                                  <i class="fa fa-close text-xs font-medium"></i>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex mt-6 mobile:w-[304px] justify-center content-center items-center">
+                            <h1 className="text-xl   text-right">
+                              لا توجد اي سلعه مضافة{" "}
+                            </h1>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    {productsInCart.length >= 1 ? (
+                      <>
+                        <div class=" p-5 bg-gray-800 rounded overflow-visible self-center w-[100%] flex flex-col justify-items-start  ">
+                          <span
+                            style={{ marginLeft: "auto" }}
+                            class="text-xl text-right font-medium self-end text-gray-100 block pb-3"
+                          >
+                            السعر الكلي : - {total_price} د.ع
+                          </span>
+
+                          <span
+                            style={{ marginLeft: "auto" }}
+                            class="text-xl text-gray-400 flex-end "
+                          >
+                            عدد السلع : - {total_items}
+                          </span>
+
+                          <div
+                            style={{ marginLeft: "auto" }}
+                            class="flex justify-center flex-col pt-3"
+                          >
+                            <label class="text-xl text-gray-400 ">
+                              الخصم : - 10,000 د.ع
+                            </label>
+                          </div>
+
+                          <div
+                            style={{ marginLeft: "auto" }}
+                            class="flex justify-center flex-col pt-3"
+                          >
+                            <label class="text-xl text-gray-400 ">
+                              سعر التوصيل : - 5,000 د.ع
+                            </label>
+                          </div>
+
+                          <div class="grid grid-cols-3 gap-2 pt-2 mb-3"></div>
+
+                          <Link to="/checkout" class=" text-white btn">
+                            أتمام الشراء
+                          </Link>
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+
+                    <div class="flex justify-between items-center mt-6 pt-6 border-t">
+                      <div class="flex items-center">
+                        <i class="fa fa-arrow-left text-sm pr-2"></i>
+                        <span class="text-md  btn font-medium text-white">
+                          <Link
+                            className="active:no-underline hover:no-underline "
+                            to="/products"
+                          >
+                            مواصلة التسوق
+                          </Link>
+                          <ArrowLeftOutlined style={{ fontSize: "30px" }} />
                         </span>
                       </div>
                     </div>
-
-                    <div class="flex justify-center items-center">
-                      <div class="pr-8 flex ">
-                        <span class="font-semibold">-</span>
-                        <input
-                          type="text"
-                          class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                          value="1"
-                        />
-                        <span class="font-semibold">+</span>
-                      </div>
-
-                      <div class="pr-8 ">
-                        <span class="text-xs font-medium">$10.50</span>
-                      </div>
-                      <div>
-                        <i class="fa fa-close text-xs font-medium"></i>
-                      </div>
-                    </div>
                   </div>
-
-                  <div class="flex justify-between items-center mobile:w-[304px] pt-6 mt-6 border-t">
-                    <div class="flex  items-center">
-                      <img
-                        src="https://cdn.shopify.com/s/files/1/0240/7285/products/WithinYourselfLongSleeveT-ShirtinElectricBlue04_360x.jpg?v=1642719824"
-                        width="60"
-                        class="rounded-full "
-                      />
-
-                      <div class="flex flex-col ml-3 ">
-                        <span class="text-md font-medium w-auto">
-                          Spicy Mexican potatoes
-                        </span>
-                        <span class="text-xs font-light text-gray-400">
-                          #66999
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="flex justify-center items-center">
-                      <div class="pr-8 flex">
-                        <span class="font-semibold">-</span>
-                        <input
-                          type="text"
-                          class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                          value="1"
-                        />
-                        <span class="font-semibold">+</span>
-                      </div>
-
-                      <div class="pr-8">
-                        <span class="text-xs font-medium">$10.50</span>
-                      </div>
-                      <div>
-                        <i class="fa fa-close text-xs font-medium"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-between mobile:w-[304px] items-center mt-6 pt-6 border-t">
-                    <div class="flex  items-center">
-                      <img
-                        src="https://cdn.shopify.com/s/files/1/0240/7285/products/WithinYourselfLongSleeveT-ShirtinElectricBlue04_360x.jpg?v=1642719824"
-                        width="60"
-                        class="rounded-full "
-                      />
-
-                      <div class="flex flex-col ml-3 ">
-                        <span class="text-md font-medium">Breakfast</span>
-                        <span class="text-xs font-light text-gray-400">
-                          #86577
-                        </span>
-                      </div>
-                    </div>
-
-                    <div class="flex justify-center items-center">
-                      <div class="pr-8 flex">
-                        <span class="font-semibold">-</span>
-                        <input
-                          type="text"
-                          class="focus:outline-none bg-gray-100 border h-6 w-8 rounded text-sm px-2 mx-2"
-                          value="1"
-                        />
-                        <span class="font-semibold">+</span>
-                      </div>
-
-                      <div class="pr-8">
-                        <span class="text-xs font-medium">$10.50</span>
-                      </div>
-                      <div>
-                        <i class="fa fa-close text-xs font-medium"></i>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-between items-center mt-6 pt-6 border-t">
-                    <div class="flex items-center">
-                      <i class="fa fa-arrow-left text-sm pr-2"></i>
-                      <span  class="text-md  btn font-medium text-white">
-                         مواصلة التسوق
-                      </span>
-                    </div>
-
-                    
-                  </div>
-                </div>
-                <div class=" p-5 bg-gray-800 rounded overflow-visible flex flex-col justify-items-start  ">
-                  <span style={{marginLeft: "auto"}} class="text-xl font-medium self-end text-gray-100 block pb-3">
-                        السعر الكلي : - 190$
-                  </span>
-
-                  <span style={{marginLeft: "auto"}} class="text-xs text-gray-400 flex-end ">عدد السلع  : -  3</span>
-
-                  
-                  <div style={{marginLeft: "auto"}} class="flex justify-center flex-col pt-3">
-                    <label class="text-xs text-gray-400 ">الخصم : - 10$</label>
-                   
-                  </div>
-
-                  <div style={{marginLeft: "auto"}} class="flex justify-center flex-col pt-3">
-                    <label class="text-xs text-gray-400 ">سعر التوصيل  : - 5$</label>
-                    
-                  </div>
-
-                  <div class="grid grid-cols-3 gap-2 pt-2 mb-3">
-                    
-
-                   
-                  </div>
-
-                  <Link to="/#" class=" text-white btn">
-                    أتمام الشراء
-                  </Link>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <hr className="mb-10"/>
-      <Footer />
+          <hr className="mb-10" />
+          <Footer />
+        </>
+      )}
     </div>
   );
 };

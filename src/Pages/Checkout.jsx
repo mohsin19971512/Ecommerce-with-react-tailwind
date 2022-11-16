@@ -1,46 +1,74 @@
 import React from 'react'
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { signup } from "../store/userSlice";
+import { Navigate } from "react-router-dom";
+import CheckoutForm from './CheckoutForm';
+import { checkout } from '../store/productSlice';
 
 export default function Checkout() {
+  const { userToken } = useSelector((state) => state.user);
+  const { isOrderCreated } = useSelector(
+    (state) => state.products
+  );
+  const ErrorSchema = Yup.object().shape({
+    address1: Yup.string()
+      .required("يرجا ادخال العنوان")
+      .min(10, "too Short")
+      .max(200, "Too Long"),
+
+      address2: Yup.string()
+      .required("يرجا ادخال العنوان")
+      .min(10, "قصير جداً")
+      .max(120, "طويل جداً"),
+
+      note: Yup.string()
+      .required("يرجا ادخال ملاحضة")
+      .min(10, "too Short")
+      .max(200, "Too Long"),
+
+      phone: Yup.string()
+      .required("يرجى ادخال رقم الهاتف")
+      .min(8, "كلمة السر قصيرة")
+      .matches(/^(((?:\+|00)964)|(0)*)7\d{9}$/, "يرجا ادخال رقم صالح"),
+
+      password2: Yup.string().oneOf(
+      [Yup.ref("password1"), null],
+      "كلمة السر يجب ان تكون متطابقة "
+    ),
+  })
+  const dispatch = useDispatch();
+  const { error } = useSelector((state) => state.user);
+  const { isSignUp } = useSelector((state) => state.user);
+  if (isOrderCreated) return <Navigate to="/" />;
   return (
-<div class="leading-loose flex justify-center w-[100%] h-[100vh]">
-  <form class="max-w-xl m-4 p-10 bg-white justify-center w-[800px] rounded shadow-xl">
-    <p class="text-gray-800 font-medium">Customer information</p>
-    <div class="">
-      <label class="block text-sm text-gray-00" for="cus_name">Name</label>
-      <label class="block text-sm text-red-500" for="cus_name">*This Fieled is required</label>
+    <div>
+      {error && (
+        <div
+          class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+          role="alert"
+        >
+          <span class="font-medium"> {error}</span>
+        </div>
+      )}
+      <Formik
+        initialValues={{
+          address1: "",
+          address2: "",
+          phone: "",
+          note: "",
+          token : userToken,
 
-      <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Your Name" aria-label="Name" />
+        }}
+        validationSchema={ErrorSchema}
+        onSubmit={(value) => {
+          console.log("value",value)
+          dispatch(checkout(value));
+          
+        }}
+        component={CheckoutForm}
+      />
     </div>
-    <div class="mt-2">
-      <label class="block text-sm text-gray-600" for="cus_email">Email</label>
-      <input class="w-full px-5  py-4 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Your Email" aria-label="Email" />
-    </div>
-    <div class="mt-2">
-      <label class=" block text-sm text-gray-600" for="cus_email">Address</label>
-      <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Street" aria-label="Email" />
-    </div>
-    <div class="mt-2">
-      <label class="hidden text-sm block text-gray-600" for="cus_email">City</label>
-      <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="City" aria-label="Email" />
-    </div>
-    <div class="inline-block mt-2 w-1/2 pr-1">
-      <label class="hidden block text-sm text-gray-600" for="cus_email">Country</label>
-      <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email" name="cus_email" type="text" required="" placeholder="Country" aria-label="Email" />
-    </div>
-    <div class="inline-block mt-2 -mx-1 pl-1 w-1/2">
-      <label class="hidden block text-sm text-gray-600" for="cus_email">Zip</label>
-      <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_email"  name="cus_email" type="text" required="" placeholder="Zip" aria-label="Email" />
-    </div>
-    <p class="mt-4 text-gray-800 font-medium">Payment information</p>
-    <div class="">
-      <label class="block text-sm text-gray-600" for="cus_name">Card</label>
-      <input class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" id="cus_name" name="cus_name" type="text" required="" placeholder="Card Number MM/YY CVC" aria-label="Name" />
-    </div>
-    <div class="mt-4">
-      <button class="px-4 py-1 text-white font-light tracking-wider bg-gray-900 rounded" type="submit">$3.00</button>
-    </div>
-  </form>
-</div>
-
-  )
+  );
 }

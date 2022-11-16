@@ -13,18 +13,17 @@ import React from "react";
 const Footer = () => {
   const socialStyle = "m-3 rounded-full cursor-pointer p-2 text-white";
   return (
-    <div className="flex items-center justify-around p-2 mobile:flex-col mobile:items-start">
+    <div className="flex items-center xl:mr-28 justify-around p-2  ml-auto mobile:flex-col mobile:items-start">
       <div className="flex-1 self-end flex flex-col flex-wrap p-2">
         <h1 className="text-[25px] mb-2 self-start">تجهيزات عسكرية</h1>
-        <p style={{ direction: "rtl" }} className="self-end mr-0">
-          اللغز الذي نبحث عن مكانه، الحياة ذاك الشيء البعيد الذي نعيش به ولأجله،
-          ولكننا غير مدركين السر الذي سيوصلنا للنجاة، لمعنى أن نصبح أُناساً
-          قادرين على مواجهتها بقوة وحزم أشد، لكنني دائماً على ثقة تامة بأنها
-          وجدت لنتحداها، لنثبت أننا خلقنا لأمر ما عظيم ذي شأن أعظم، فكل إنسان
-          على هذه الأرض مستخلف لمهمة ما عليه إنجازها، لا يهم متى، بأول العمر أو
-          آخره، طالما بوصلته نحو الطريق الصحيح. إقرأ المزيد على موضوع.كو
+        <p style={{ textAlign: "right" }} className="self-end mr-0">
+          تجهيزات عسكرية لكافة الاجهزة الامني نسعى لتغطية كافة الاحتياجات بمختلف
+          الاحجام والالوان وافضل الماركات وبخدمة توصيل لكافة مناطق بغداد وباسهل
+          الطرق الممكن تجهيزات عسكرية لكافة الاجهزة الامني نسعى لتغطية كافة
+          الاحتياجات بمختلف الاحجام والالوان وافضل الماركات وبخدمة توصيل لكافة
+          مناطق بغداد وباسهل الطرق الممكن
         </p>
-        <div className="flex items-center self-start justify-center mt-3 self-start">
+        <div className="flex items-center self-start justify-center mt-3 ">
           <div className={socialStyle + ` bg-blue-700`}>
             <Facebook />
           </div>

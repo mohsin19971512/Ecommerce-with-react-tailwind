@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap');
 @layer base {
   li{
     @apply p-4
@@ -15,7 +15,10 @@
 
 .btn
 {
-    @apply  bg-green-900 rounded-md shadow-md mt-[30px] p-3;
+    @apply  bg-teal-900	 rounded-md shadow-md mt-[30px] p-3
+    hover:bg-none hover:text-black 
+
+
     
 }
 
@@ -27,4 +30,8 @@
 .colorSelect
 {
    @apply w-[2rem] h-[2rem] rounded-full border-2 p-[10px] ml-5 cursor-pointer;
+}
+
+body{
+  font-family: 'Noto Naskh Arabic', serif;
 }

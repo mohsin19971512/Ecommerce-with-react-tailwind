@@ -41,15 +41,15 @@ export default function Checkout() {
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.user);
   const { isSignUp } = useSelector((state) => state.user);
-  if (isOrderCreated) return <Navigate to="/" />;
+  if (isOrderCreated) return <Navigate  to="/" />;
   return (
     <div>
       {error && (
         <div
-          class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+          className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
           role="alert"
         >
-          <span class="font-medium"> {error}</span>
+          <span className="font-medium"> {error}</span>
         </div>
       )}
       <Formik
@@ -59,12 +59,14 @@ export default function Checkout() {
           phone: "",
           note: "",
           token : userToken,
+          work_address : false
 
         }}
         validationSchema={ErrorSchema}
         onSubmit={(value) => {
-          console.log("value",value)
+          console.log("value",value.worke_address)
           dispatch(checkout(value));
+          localStorage.setItem("modal",true)
           
         }}
         component={CheckoutForm}

@@ -1,6 +1,6 @@
 export const SliderProduct = [
     {
-      src: "https://scontent.fbgw57-1.fna.fbcdn.net/v/t1.6435-9/122415884_3430891176991763_5919518545763294308_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=973b4a&_nc_ohc=H4RDliSexicAX8mF69I&_nc_oc=AQlFCGu6mcwf4rU67STWnP4aT_vmJ8Pt3szIj8QlCbARMkEsktMBWqJF2aO6UO3j56Q&_nc_ht=scontent.fbgw57-1.fna&oh=00_AfBlk584FKyWPlNmr5CpeJsPP4-BibzI65r5MbQBN3utIQ&oe=638F2514",
+      src: "https://scontent.fbgw41-4.fna.fbcdn.net/v/t39.30808-6/241644448_4342966732450865_9174567869012493168_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=ytRngHV6wwIAX91UPF9&_nc_ht=scontent.fbgw41-4.fna&oh=00_AfD9HaQFjOezqZn43pgjThBdwn-83VjJYAGYhbywMERLAg&oe=63BCA7A0",
       content: {
         h2: "Amazing Deals this Summer",
         p: "Upto 40% off",

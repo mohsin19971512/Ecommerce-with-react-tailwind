@@ -9,10 +9,10 @@ import FormatPrice from "./FormatPrice";
 
 const Product = ({ item }) => {
   return (
-    <div className=" flex flex-col justify-center  max-w-sm w-72 mobile:w-[500px]  bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 xl:m-5 mobile:mt-1 mobile:mb-7">
+    <div className=" flex flex-col justify-center  max-w-sm w-72 mobile:w-[100%]  bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 xl:m-5 mobile:mt-1 mobile:mb-7">
       <img
         className="p-8  rounded-t-lg"
-        src="https://scontent.fbgw57-1.fna.fbcdn.net/v/t1.6435-9/122484663_3430891153658432_6153668941496412298_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=973b4a&_nc_ohc=-O3wE-0XRJMAX_h_yyA&_nc_ht=scontent.fbgw57-1.fna&oh=00_AfDQJJwBV-S0mD9ILiMjjlcL5l25xDUacAyeCF6ILsh5AA&oe=638F2220"
+        src="https://scontent.fbgw41-4.fna.fbcdn.net/v/t39.30808-6/241644448_4342966732450865_9174567869012493168_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=ytRngHV6wwIAX91UPF9&_nc_ht=scontent.fbgw41-4.fna&oh=00_AfD9HaQFjOezqZn43pgjThBdwn-83VjJYAGYhbywMERLAg&oe=63BCA7A0"
         alt="product image"
       />
       <div className="px-5 pb-5">
@@ -44,9 +44,9 @@ const Product = ({ item }) => {
           <div className="flex justify-between">
             <FormatPrice className="text-xl  px-2 py-1 font-bold text-gray-900  mobile:mt-2" price={item.price}/>
             
-            <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-teal-900	 rounded-lg">
+            <span className="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-teal-900	 rounded-lg">
               جديد
-              {console.log("ProductId", item.id)}
+              
             </span>
           </div>
 

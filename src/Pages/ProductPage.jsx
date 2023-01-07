@@ -125,7 +125,7 @@ const ProductPage = () => {
       <div
         className={
           activeNav
-            ? "flex justify-center mobile:flex-col mobile:mt-[400px] mobile:mb-60 mobile:p-3"
+            ? "flex justify-center mobile:flex-col mobile:mt-[450px] mobile:mb-60 mobile:p-3"
             : "flex justify-center mobile:flex-col mobile:mt-4 mobile:mb-60 mobile:p-3"
         }
       >
@@ -139,7 +139,7 @@ const ProductPage = () => {
               {slides.map((slide, index) => {
                 if (index === activeSlide) {
                   return (
-                    <div className="carousel-item active relative float-left w-full">
+                    <div key={index} className="carousel-item active relative float-left w-full">
                       <img
                         src={slide.src}
                         className="block w-full"
@@ -180,9 +180,14 @@ const ProductPage = () => {
             style={{ textAlign: "right" }}
             className="text-xl font-semibold tracking-tight mt-2 text-zinc-500 "
           >
-            {/* {productDetails.category.name} */} حرس وطني
+            {productDetails.category ? (
+              <>
+              {productDetails.category.name} 
+              </>
+            ):(<></>)}
+         
           </h5>
-          <p className="disription pr-[4rem] text-right text-justify mt-4 mobile:pr-0">
+          <p className="disription  text-right  mt-4 mobile:pr-0">
             حقيبة طيران امريكيه اصليه مرقط زيتوني Pilot Flyer's Helmet Bag. جفوف
             طيران + جف لايت 🧤 🥾بساطيل قطع متنوعة اصليه بدلات جفت امريكية اصليه
             طيارين جواريبات امريكيه اصليه لون ابيض🧦
@@ -190,14 +195,14 @@ const ProductPage = () => {
           <div className="flex flex-col place-self-start">
             <div className="flex">
               <p className="mt-7 text-3xl">
-                <h1>
+                <span>
                   {" "}
                   السعر : -{" "}
                   <FormatPrice
                     className="text-2xl font-bold"
                     price={productDetails.price}
                   />{" "}
-                </h1>
+                </span>
               </p>
             </div>
 
@@ -217,10 +222,10 @@ const ProductPage = () => {
                     style={{ textAlign: "right" }}
                     className="border-[2px] mr-3 w-24 h-10  border-silver rounded-md "
                   >
-                    <option value={null} selected>
+                    <option value={null} defaultValue>
                       اختر
                     </option>
-                    {productDetails.product_size.map((sizes) => (
+                    {productDetails.product_size.sizes.map((sizes) => (
                       <option key={sizes.id} value={sizes.id}>
                         {sizes.size}
                       </option>
@@ -235,11 +240,15 @@ const ProductPage = () => {
              <CounterInput
              count = {1}
                 min={1}
-                max={10}
+                max={productDetails.qty}
                 onCountChange={(count) => setQuantitu(count)}
               />{" "}
              </div>
-              
+              {productDetails.qty <= 4 ? (
+                <>
+                <span className="text-red-600 mt-2 mx-2"> باقي فقط {productDetails.qty} قطع</span>
+                </>
+              ):(<></>)}
             </div>
           </div>
           {success && (
@@ -252,7 +261,7 @@ const ProductPage = () => {
           )}
           {error && (
             <div
-              className="p-3 xl:w-10 w-full mb-[-22px] mt-2 text-sm text-red-700 bg-red-100 rounded-lg text-right dark:bg-red-200 dark:text-red-800 "
+              className="p-3 xl:w-auto w-full mb-[-22px] mt-2 text-sm text-red-700 bg-red-100 rounded-lg text-right dark:bg-red-200 dark:text-red-800 m-2 "
               role="alert"
             >
               {error}
@@ -261,7 +270,7 @@ const ProductPage = () => {
 
           <button
             onClick={() => handelAddToCart(id)}
-            className="text-white mobile:w-full btn   rounded-md shadow-md mt-[30px] p-3"
+            className="text-white mobile:w-full btn  rounded-md shadow-md mt-[30px] p-3"
           >
             <span className="hover:text-black">اضافة</span>
           </button>

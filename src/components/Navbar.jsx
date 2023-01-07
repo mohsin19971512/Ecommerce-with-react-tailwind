@@ -11,7 +11,8 @@ import { navAction, testing } from "../store/productSlice";
 
 export const Navbar = () => {
   const cartnum = localStorage.getItem("cartItemsNum")
-    ? localStorage.getItem("cartItemsNum") : 0;
+    ? localStorage.getItem("cartItemsNum")
+    : 0;
   const [nav, setNav] = useState(false);
   /*  const userToken = localStorage.getItem("token")
     ? localStorage.getItem("token")
@@ -42,11 +43,11 @@ export const Navbar = () => {
               تجهيزات عسكرية
             </Link>
           </h1>
-          <ul className="hidden md:flex">
+          <ul className="hidden md:flex mr-4">
             <li className="cursor-pointer hover:text-teal-900">
               <Link
                 to="/"
-                className="hover:no-underline active:no-underline hover:text-teal-900 active:text-teal-900"
+                className="hover:no-underline active:no-underline text-xl hover:text-teal-900 active:text-teal-900"
               >
                 الرئيسية
               </Link>
@@ -54,25 +55,33 @@ export const Navbar = () => {
             <li className="cursor-pointer hover:text-teal-900">
               <Link
                 to="/category"
-                className="hover:no-underline active:no-underline hover:text-teal-900 active:text-teal-900"
+                className="hover:no-underline active:no-underline text-xl  hover:text-teal-900 active:text-teal-900"
               >
                 الاجهزة الامنية
               </Link>
             </li>
-            <li className="cursor-pointer hover:text-teal-900">المنتجات</li>
+
             <li className="cursor-pointer hover:text-teal-900">
               <Link
-                to="/products"
-                className="hover:no-underline active:no-underline hover:text-teal-900 active:text-teal-900"
+                to="/best-selling-products"
+                className="hover:no-underline active:no-underline text-xl hover:text-teal-900 active:text-teal-900"
               >
-                اخر المنتجات
+                الأكثر مبيعاً
+              </Link>
+            </li>
+            <li className="cursor-pointer  hover:text-teal-900">
+              <Link
+                to="/latest-products"
+                className="hover:no-underline active:no-underline text-xl hover:text-teal-900 active:text-teal-900"
+              >
+               المضافة مؤخراً 
               </Link>
             </li>
             <li className="cursor-pointer hover:text-teal-900">
               {" "}
               <Link
                 to="/contact"
-                className="hover:no-underline active:no-underline hover:text-teal-900 active:text-teal-900"
+                className="hover:no-underline active:no-underline text-xl hover:text-teal-900 active:text-teal-900"
               >
                 اتصل بنا
               </Link>
@@ -81,9 +90,9 @@ export const Navbar = () => {
               {" "}
               <Link
                 to="/order-record"
-                className="hover:no-underline active:no-underline hover:text-teal-900 active:text-teal-900"
+                className="hover:no-underline active:no-underline text-xl hover:text-teal-900 active:text-teal-900"
               >
-                سجل الطلبات 
+                سجل الطلبات
               </Link>
             </li>
           </ul>
@@ -92,7 +101,7 @@ export const Navbar = () => {
           {userToken ? (
             <button
               onClick={() => dispatch(logout())}
-              className="px-8 text-slate-50 btn  hover:bg-none hover:shadow-none hover:text-black mb-4 py-2 "
+              className="px-8 text-slate-50 btn text-xl hover:bg-none hover:shadow-none hover:text-black mb-4 py-2 "
             >
               تسجيل خروج
             </button>
@@ -100,13 +109,13 @@ export const Navbar = () => {
             <>
               <Link
                 to="/login"
-                className="border-none hover:text-teal-900 bg-transparent hover:no-underline text-black ml-4 mr-4 mt-10"
+                className="border-none text-xl hover:text-teal-900 bg-transparent hover:no-underline text-black ml-4 mr-4 mt-10"
               >
                 تسجيل دخول
               </Link>
               <Link
                 to="/register"
-                className="px-8 text-slate-50 btn  hover:bg-white hover:text-teal-900 mb-4 py-2 "
+                className="px-8 text-slate-50 btn text-xl hover:bg-white hover:text-teal-900 mb-4 py-2 "
               >
                 أنشاء حساب
               </Link>
@@ -115,28 +124,30 @@ export const Navbar = () => {
 
           <Link
             to="/cart"
-            onClick={() => dispatch(navAction())}
             className="m-8 mt-10 hover:text-teal-800 cursor-pointer"
           >
             {/*  <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge> */}
 
-            <span class="relative inline-block">
+            <span className="relative inline-block">
               <ShoppingCartOutlined />
 
-              <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-teal-900 rounded-full">
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-teal-900 rounded-full">
                 {cartnum}
               </span>
             </span>
           </Link>
         </div>
         <div className=" md:hidden flex">
-          <Link className="mr-3 hover:text-teal-800" to="/cart">
-            <span class="relative inline-block">
+          <Link
+            className="mr-3 hover:text-teal-800"
+            to="/cart"
+          >
+            <span className="relative inline-block">
               <ShoppingCartOutlined />
 
-              <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-teal-900	 rounded-full">
+              <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-teal-900	 rounded-full">
                 {cartnum}
               </span>
             </span>
@@ -188,7 +199,7 @@ export const Navbar = () => {
           <Link
             className="hover:no-underline active:no-underline"
             onClick={() => dispatch(activeNav())}
-            to="/products"
+            to="/best-selling-products"
           >
             الأكثر مبيعاً
           </Link>
@@ -197,18 +208,9 @@ export const Navbar = () => {
           <Link
             className="hover:no-underline active:no-underline"
             onClick={() => dispatch(activeNav())}
-            to="/products"
+            to="/latest-products"
           >
-            اخر المنتجات
-          </Link>
-        </li>
-        <li className="  border-zinc-300 hover:no-underline w-full">
-          <Link
-            className="hover:no-underline active:no-underline"
-            onClick={() => dispatch(activeNav())}
-            to="/contact"
-          >
-            اتصل بنا
+             المضافة مؤخراً
           </Link>
         </li>
         <li className="  border-zinc-300 hover:no-underline w-full">
@@ -220,6 +222,16 @@ export const Navbar = () => {
             سجل الطلبات{" "}
           </Link>
         </li>
+        <li className="  border-zinc-300 hover:no-underline w-full">
+          <Link
+            className="hover:no-underline active:no-underline"
+            onClick={() => dispatch(activeNav())}
+            to="/contact"
+          >
+            اتصل بنا
+          </Link>
+        </li>
+
         <div className="flex flex-col my-4">
           {userToken ? (
             <>

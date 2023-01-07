@@ -35,3 +35,13 @@
 body{
   font-family: 'Noto Naskh Arabic', serif;
 }
+
+.swiper-button-next,.swiper-button-prev{
+  color:white !important;
+}
+
+.swiper-pagination-bullet-active{
+  color:white !important;
+  background-color: white !important;
+  
+}

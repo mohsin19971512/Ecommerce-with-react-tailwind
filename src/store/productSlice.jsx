@@ -41,9 +41,7 @@ export const productsInCarts = createAsyncThunk(
     "products/productsInCarts",    
     async(userToken,thunkAPI)=>{
         const {rejectWithValue} = thunkAPI;
-        console.log("cart step 2")
         try {
-        console.log("cart step 3")
         const response = await fetch(`http://127.0.0.1:8000/api/orders/cart`, {
             headers: {
               "Authorization": `Bearer ${userToken}`,
@@ -58,7 +56,6 @@ export const productsInCarts = createAsyncThunk(
             localStorage.setItem('cartItemsNum',data.length)
 
         }
-        console.log("data",data)
 
 
         return data;
@@ -91,7 +88,6 @@ export const totalPrice = createAsyncThunk(
 export const categoryFetch = createAsyncThunk(
     "products/categoryFetch",    
     async(id,thunkAPI)=>{
-        console.log("Dispatch ru");
         const {rejectWithValue} = thunkAPI;
         try {
         const response = await fetch(`http://127.0.0.1:8000/api/category/categories/${id}`)
@@ -116,7 +112,6 @@ export const getProductByType = createAsyncThunk(
         try {
         const response = await fetch(`http://127.0.0.1:8000/api/category/category/${categ[0]}/${categ[1]}`);
         const data = await response.clone().json();
-        console.log("getProductByType",data)
         return data;
         }catch(error) {
             return rejectWithValue(error.message);
@@ -150,7 +145,6 @@ export const reduceQuantity = createAsyncThunk(
     async(data1,thunkAPI)=>{
         const {rejectWithValue} = thunkAPI;
         try {
-        console.log("fetch")
         const response = await fetch(`http://127.0.0.1:8000/api/orders/item/${data1.id}/reduce-quantity`, {
             method: "POST",
             headers: {
@@ -174,7 +168,6 @@ export const increaseItemQuantity = createAsyncThunk(
     async(data1,thunkAPI)=>{
         const {rejectWithValue} = thunkAPI;
         try {
-        console.log("fetch increase")
         const response = await fetch(`http://127.0.0.1:8000/api/orders/item/${data1.id}/increase-quantity`, {
             method: "POST",
             headers: {
@@ -199,9 +192,7 @@ export const getCategories = createAsyncThunk(
     "products/getCategories",    
     async(_,thunkAPI)=>{
         const {rejectWithValue} = thunkAPI;
-        console.log("cart step 2")
         try {
-        console.log("cart step 3")
         const response = await fetch(`http://127.0.0.1:8000/api/category/categories`);
         const data = await response.clone().json();
         return data;
@@ -216,7 +207,6 @@ export const completedOrder = createAsyncThunk(
     async(token,thunkAPI)=>{
         const {rejectWithValue} = thunkAPI;
         try {
-        console.log("fetch increase")
         const response = await fetch(`http://127.0.0.1:8000/api/orders/completed-order`, {
             headers: {
               "Authorization": `Bearer ${token}`,
@@ -265,7 +255,6 @@ const productSlice = createSlice({
     reducers :{
         navAction: (state) => {
           
-        console.log("dispatched")
             state.activeNav = !state.activeNav
             state.newactiveNav = true
 
@@ -306,7 +295,6 @@ const productSlice = createSlice({
             state.isLoading = false;;
             state.error = null
             state.productDetails = action.payload;
-            console.log(action.payload)
 
         },
         [productDetailFetch.rejected] : (state,action) => {
@@ -328,7 +316,6 @@ const productSlice = createSlice({
             state.isLoading = false;
             state.error = null
             state.categoryTypes = action.payload;
-            console.log(action.payload)
 
         },
         [categoryFetch.rejected] : (state,action) => {
@@ -349,7 +336,6 @@ const productSlice = createSlice({
             state.isLoading = false;
             state.error = null
             state.products_category_types = action.payload
-            console.log("action.payload",action.payload)
 
         },
         [getProductByType.rejected] : (state,action) => {
@@ -364,7 +350,6 @@ const productSlice = createSlice({
         [productsInCarts.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding productsInCarts")
         },
 
         [productsInCarts.fulfilled] : (state,action) => {
@@ -372,14 +357,12 @@ const productSlice = createSlice({
             state.error = null
             state.productsInCart = action.payload
             state.cartItemsNum = action.payload.length
-            console.log("productsInCarts step 4",state.cartItemsNum)
 
         },
         [productsInCarts.rejected] : (state,action) => {
             state.isLoading = false;
             localStorage.setItem("cartItemsNum",0)
             state.error = action.payload;
-            console.log(state.error)
             
             
 
@@ -393,7 +376,6 @@ const productSlice = createSlice({
         [totalPrice.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding")
         },
 
         [totalPrice.fulfilled] : (state,action) => {
@@ -408,7 +390,6 @@ const productSlice = createSlice({
             state.isLoading = false;
             
             state.error = action.payload;
-            console.log(state.error)
             
             
 
@@ -422,7 +403,6 @@ const productSlice = createSlice({
         [reduceQuantity.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding")
         },
 
         [reduceQuantity.fulfilled] : (state,action) => {
@@ -449,7 +429,6 @@ const productSlice = createSlice({
         [increaseItemQuantity.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding")
         },
 
         [increaseItemQuantity.fulfilled] : (state,action) => {
@@ -474,14 +453,12 @@ const productSlice = createSlice({
         [getCategories.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding")
         },
 
         [getCategories.fulfilled] : (state,action) => {
             state.isLoading = false;
             state.error = null
             state.categories = action.payload
-            console.log(action.payload)
             state.isOrderCreated = false
 
         },
@@ -501,7 +478,6 @@ const productSlice = createSlice({
         [checkout.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding")
         },
 
         [checkout.fulfilled] : (state,action) => {
@@ -526,14 +502,12 @@ const productSlice = createSlice({
         [completedOrder.pending] : (state,action) => {
             state.isLoading = true;
             state.error = null;
-            console.log("Loadding")
         },
 
         [completedOrder.fulfilled] : (state,action) => {
             state.isLoading = false;
             state.error = null
             state.completed = action.payload
-            console.log("state.completed",state.completed)
         },
         [completedOrder.rejected] : (state,action) => {
             state.isLoading = false;

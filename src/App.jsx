@@ -20,6 +20,8 @@ import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import OrderRecord from "./components/OrderRecord"
 import CategoryLocalStorage from "./Pages/TestLocalStorage/CategoryLocalStorage"
+import BestSellingProductsPage from "./Pages/BestSellingProductsPage"
+import LatestProductsPage from "./Pages/LatestProductsPage"
 
 
 function App() {
@@ -44,6 +46,9 @@ function App() {
                       <Route path="/products" element={<Products />} />
                       <Route path="/order-record" element={<OrderRecord />} />
                       <Route path="/localstorage" element={<CategoryLocalStorage />} />
+                      <Route path="/latest-products" element={<LatestProductsPage />} />   
+                      <Route path="/best-selling-products" element={<BestSellingProductsPage />} />   
+
 
 
 

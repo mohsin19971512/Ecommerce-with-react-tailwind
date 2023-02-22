@@ -32,8 +32,8 @@ export const Navbar = () => {
   const style = "text-[14px], cursor-pointer, ml-[25px] mobile:ml-[5px]";
 
   return (
-    <div className="e-screen h-[80px] bg-white drop-shadow-lg z-40">
-      <div className="px-2 flex justify-between items-center w-full h-full">
+    <div className="e-screen z-50 h-[80px] bg-white drop-shadow-lg ">
+      <div className="px-2 flex justify-between items-center sticky  w-full h-full">
         <div className="flex items-center">
           <h1 className="text-3xl font-bold mr-4 cursor-pointer sm:text-4xl">
             <Link
@@ -97,7 +97,7 @@ export const Navbar = () => {
             </li>
           </ul>
         </div>
-        <div className="hidden md:flex">
+        <div className="hidden md:flex z-30">
           {userToken ? (
             <button
               onClick={() => dispatch(logout())}
@@ -139,13 +139,13 @@ export const Navbar = () => {
             </span>
           </Link>
         </div>
-        <div className=" md:hidden flex">
+        <div className=" md:hidden relative z-50 flex">
           <Link
             className="mr-3 hover:text-teal-800"
             to="/cart"
           >
-            <span className="relative inline-block">
-              <ShoppingCartOutlined />
+            <span className="absolute left-12 top-[-11px] inline-block">
+              <ShoppingCartOutlined className="w-7 " />
 
               <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-teal-900	 rounded-full">
                 {cartnum}
@@ -153,22 +153,21 @@ export const Navbar = () => {
             </span>
           </Link>
 
-          <div onClick={() => dispatch(navAction())} className="md:hidden flex">
+          <div onClick={() => dispatch(navAction())} className="md:hidden flex relative ">
             {!activeNav ? (
-              <MenuIcon className="w-5 mr-3 cursor-pointer" />
+              <MenuIcon className="w-7  mb-1 ml-2 mr-3 cursor-pointer absolute top-[-12px] left-0" />
             ) : (
-              <XIcon className="w-5 mr-2"></XIcon>
+              <XIcon className="w-7  mb-1 ml-2 mr-3 cursor-pointer absolute top-[-15px] left-0"></XIcon>
             )}
           </div>
         </div>
       </div>
 
-      <ul
+
+<ul
         style={{ direction: "rtl", textAlign: "center" }}
         className={
-          !activeNav
-            ? "hidden"
-            : "absolute mobile:z-40 mobile:mb-[400px]  mobile:sticky bg-white w-full px-8 md:hidden shadow-md"
+          `fixed top-0 w-full  z-10 transition duration-1000 ease-in-out ${activeNav ? 'transform translate-y-0 top-20 z-50' : 'transform -translate-y-full  top-0'} bg-white px-8 md:hidden shadow-md`
         }
       >
         <li
@@ -264,6 +263,7 @@ export const Navbar = () => {
           )}
         </div>
       </ul>
+
     </div>
   );
 };

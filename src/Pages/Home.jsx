@@ -7,7 +7,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Products from "../components/Products";
 import Slider from "../components/Slider";
 import SliderComponent from "../components/SliderComponent";
-import CategoryLocalStorage from "./TestLocalStorage/CategoryLocalStorage";
+// import CategoryLocalStorage from "./TestLocalStorage/CategoryLocalStorage";
 
 function Home() {
   const { activeNav, newactiveNav } = useSelector((state) => state.products);

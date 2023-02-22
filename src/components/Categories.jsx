@@ -35,7 +35,7 @@ const Categories = () => {
       <div
         className={
           activeNav
-            ? "flex justify-between mt-[450px]  items-center mobile:z-10 p-5 md:flex-row mobile:flex-col"
+            ? "flex justify-between  items-center mobile:-z-10 p-5 md:flex-row mobile:flex-col"
             : " 2xl:grid grid-cols-3 gap-4 justify-between items-center mobile:z-10 p-5 md:flex-row mobile:flex-col"
         }
       >

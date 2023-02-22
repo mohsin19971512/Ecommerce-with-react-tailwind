@@ -12,7 +12,7 @@ const Product = ({ item }) => {
     <div className=" flex flex-col justify-center  max-w-sm w-72 mobile:w-[100%]  bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 xl:m-5 mobile:mt-1 mobile:mb-7">
       <img
         className="p-8  rounded-t-lg"
-        src="https://scontent.fbgw41-4.fna.fbcdn.net/v/t39.30808-6/241644448_4342966732450865_9174567869012493168_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=ytRngHV6wwIAX91UPF9&_nc_ht=scontent.fbgw41-4.fna&oh=00_AfD9HaQFjOezqZn43pgjThBdwn-83VjJYAGYhbywMERLAg&oe=63BCA7A0"
+        src="https://cdn.salla.sa/GazjE/E57vr8f4LXkwLbbA506yPqizqoiY9AwM9hSPoNVS.jpg"
         alt="product image"
       />
       <div className="px-5 pb-5">

@@ -13,6 +13,8 @@ const ProductPage = () => {
   const { id } = useParams();
   const { userToken } = useSelector((state) => state.user);
   const [error, setError] = useState(null);
+  const [errorSize, setErrorSize] = useState(null);
+
   const [sizeId, setSize] = useState(null);
   const [success, setSuccess] = useState(null);
   const [ qty , setQuantitu] = useState(1);
@@ -66,13 +68,13 @@ const ProductPage = () => {
     if (userToken) {
       console.log(
         "productDetails.product_size.length",
-        productDetails.product_size.length
+        productDetails
       );
       console.log("step 1");
-      if (productDetails.product_size.length>=1 && sizeId == null) {
-        setError("اختر حجم");
+      if (productDetails.product_size.sizes.length>=1 && sizeId == null) {
+        setErrorSize("اختر حجم");
         setTimeout(function(){
-          setError(null);
+          setErrorSize(null);
 
        }, 2000); //Time before execution
       } else {
@@ -141,7 +143,7 @@ const ProductPage = () => {
                   return (
                     <div key={index} className="carousel-item active relative float-left w-full">
                       <img
-                        src={slide.src}
+                        src="https://cdn.salla.sa/GazjE/E57vr8f4LXkwLbbA506yPqizqoiY9AwM9hSPoNVS.jpg"
                         className="block w-full"
                         alt="Wild Landscape"
                       />
@@ -218,12 +220,13 @@ const ProductPage = () => {
                 <>
                   <h1 className="ml-2 mt-1"> الحجم : - </h1>
                   <select
+                    required
                     onChange={(e) => setSize(e.target.value)}
                     style={{ textAlign: "right" }}
-                    className="border-[2px] mr-3 w-24 h-10  border-silver rounded-md "
+                    className="border-[2px] mr-3 w-40 outline-none h-10  border-silver rounded-md "
                   >
-                    <option value={null} defaultValue>
-                      اختر
+                    <option value="">
+                      أختر الحجم
                     </option>
                     {productDetails.product_size.sizes.map((sizes) => (
                       <option key={sizes.id} value={sizes.id}>
@@ -231,9 +234,20 @@ const ProductPage = () => {
                       </option>
                     ))}
                   </select>
+
                 </>
+                
               )}
+
             </div>
+            {errorSize && (
+            <div
+              className=" xl:w-auto w-full mb-[-22px] mt-2 p-2 text-xl text-red-900  rounded-lg text-right bg-red-100  dark:text-red-800 m-2 "
+              role="alert"
+            >
+              {errorSize}
+            </div>
+          )}
             <div className="mt-7 flex">
              <h1 className="text-2xl mt-2">الكمية : -  </h1>
              <div className="border-2 mr-2">
@@ -269,8 +283,9 @@ const ProductPage = () => {
           )}
 
           <button
+          type="submit"
             onClick={() => handelAddToCart(id)}
-            className="text-white mobile:w-full btn  rounded-md shadow-md mt-[30px] p-3"
+            className="text-white mobile:w-full 2xl:w-[250px] btn hover:bg-teal-900 rounded-md shadow-md mt-[30px] p-3"
           >
             <span className="hover:text-black">اضافة</span>
           </button>
